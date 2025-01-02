@@ -1,6 +1,6 @@
 import "./App.css";
 import { Routes, Route } from "react-router-dom";
-import { useReducer, useRef, createContext } from "react";
+import { useReducer, useRef, createContext, useEffect, useState } from "react";
 import Home from "./pages/Home";
 import Diary from "./pages/Diary";
 import New from "./pages/New";
@@ -12,48 +12,67 @@ import Edit from "./pages/Edit";
 // 3. "/diary" : 일기를 상세히 조회하는 Diary 페이지
 // 4. "/edit" : 기존 일기 수정
 
-const mockData = [
-  {
-    id: 1,
-    createdDate: new Date("2024-12-04").getTime(),
-    emotionId: 1,
-    content: "1번 일기 내용",
-  },
-  {
-    id: 2,
-    createdDate: new Date("2024-12-03").getTime(),
-    emotionId: 2,
-    content: "2번 일기 내용",
-  },
-  {
-    id: 3,
-    createdDate: new Date("2024-11-01").getTime(),
-    emotionId: 3,
-    content: "3번 일기 내용",
-  },
-];
-
 function reducer(state, action) {
+  let nextState; // 새로운 state 값(localStorage에 저장 예정)
+
   switch (action.type) {
+    case "INIT":
+      return action.data;
     case "CREATE":
-      return [action.data, ...state];
+      nextState = [action.data, ...state];
+      break;
     case "UPDATE":
-      return state.map((item) => {
+      nextState = state.map((item) => {
         return String(item.id) === String(action.data.id) ? action.data : item;
       });
+      break;
     case "DELETE":
-      return state.filter((item) => String(item.id) !== String(action.id));
+      nextState = state.filter((item) => String(item.id) !== String(action.id));
+      break;
     default:
-      return state;
+      nextState = state;
   }
+
+  localStorage.setItem("diary", JSON.stringify(nextState));
+  return nextState;
 }
 
 export const DiaryStateContext = createContext();
 export const DiaryDispatchContext = createContext();
 
 function App() {
-  const [data, dispatch] = useReducer(reducer, mockData);
-  const idRef = useRef(3);
+  const [isLoading, setIsLoading] = useState(true);
+  const [data, dispatch] = useReducer(reducer, []);
+  const idRef = useRef(0);
+
+  // App 컴포넌트가 마운트 될 때 localStorage의 값을 data로 설정
+  useEffect(() => {
+    const storedData = localStorage.getItem("diary");
+    if (!storedData) {
+      setIsLoading(false);
+      return;
+    }
+    const parsedData = JSON.parse(storedData);
+    if (!Array.isArray(parsedData)) {
+      setIsLoading(false);
+      return;
+    }
+
+    let maxId = 0;
+    parsedData.forEach((item) => {
+      if (Number(item.id) > maxId) {
+        maxId = Number(item.id);
+      }
+    });
+    idRef.current = maxId + 1;
+
+    dispatch({
+      type: "INIT",
+      data: parsedData,
+    });
+
+    setIsLoading(false);
+  }, []);
 
   // 새로운 일기 추가
   const onCreate = (createdDate, emotionId, content) => {
@@ -89,6 +108,10 @@ function App() {
       id,
     });
   };
+
+  if (isLoading) {
+    return <div>데이터 로딩 중입니다...</div>;
+  }
 
   return (
     <>

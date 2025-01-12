@@ -25,11 +25,11 @@ const arr2 = [1, 2, 3];
 arr2.forEach((item) => console.log(item));
 
 function forEach(arr: unknown, callback: (item: unknown) => void) {
-  for (let i = 0; i < arr.length; i++) {
-    callback(arr[i]);
-  }
+  // for (let i = 0; i < arr.length; i++) {
+    // callback(arr[i]);
+  // }
 }
 
 forEach(arr2, (item) => {
-  console.log(item.toFixed());
+  // console.log(item.toFixed());
 });

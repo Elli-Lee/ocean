@@ -1,22 +1,33 @@
-const CourseItem = () => {
-  const course = {
-    title: "입문자를 위한, HTML&CSS 웹 개발 입문",
-    description: "웹 개발에 필요한 기본 지식을 배웁니다.",
-    image: "./img/htmlcss.png",
-    alt: "강의 이미지",
-  };
+const HeartIconButton = ({ isFavorite = false }) => {
+  return (
+    <button className="btn">
+      <img
+        className="btn__img"
+        src={isFavorite ? "/img/heart-fill-icon.svg" : "/img/heart-icon.svg"}
+      />
+    </button>
+  );
+};
 
-  const isEmpty = false;
-  if (isEmpty) {
-    return <p>강의가 없음~</p>;
-  }
+const LinkIconButton = ({ link }) => {
+  return (
+    <a className="btn" href={link} target="_blank" rel="noreferrer">
+      <img className="btn__img" src="/img/link-icon.svg" alt="" />
+    </a>
+  );
+};
 
+const CourseItem = ({ title, description, thumbnail, isFavorite, link }) => {
   return (
     <article className="course">
-      <img className="course__img" src={course.image} alt={course.alt} />
+      <img className="course__img" src={thumbnail} alt={title} />
       <div className="course__body">
-        <div className="course__title">{course.title}</div>
-        <div className="course__description">{course.description}</div>
+        <div className="course__title">{title}</div>
+        <div className="course__description">{description}</div>
+      </div>
+      <div className="course__icons">
+        <HeartIconButton isFavorite={isFavorite} />
+        {link && <LinkIconButton link={link} />}
       </div>
     </article>
   );

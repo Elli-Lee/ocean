@@ -1,18 +1,20 @@
+import { Fragment } from "react";
+import Card from "../Card";
 import CourseItem from "./CourseItem";
 
-const CourseList = () => {
+const CourseListCard = ({ title, items }) => {
   return (
-    <div className="card">
-      <div className="card__header">강의 목록</div>
-      <div className="card__body">
-        <div className="courses">
-          <CourseItem />
-          <CourseItem />
-          <CourseItem />
-        </div>
+    <Card title={title}>
+      <div className="courses">
+        {items.map((item, index) => (
+          <Fragment key={item.id}>
+            <CourseItem {...item} />
+            {index !== items.length - 1 && <hr className="divider" />}
+          </Fragment>
+        ))}
       </div>
-    </div>
+    </Card>
   );
 };
 
-export default CourseList;
+export default CourseListCard;

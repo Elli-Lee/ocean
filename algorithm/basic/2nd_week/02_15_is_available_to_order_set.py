@@ -17,20 +17,21 @@ def is_exist_target_number_binary(target, array):
         
     return False
 
-
-def is_available_to_order(menus, orders):
-  menus.sort() # 메뉴의 길이가 N -> O(NlogN)의 시간복잡도 필요
-  for order in orders: # O(M)
-    if not is_exist_target_number_binary(order, menus): # O(logN)
-      return False
-  return True
-
 # def is_available_to_order(menus, orders):
-#   is_all_available = True
 #   for order in orders:
 #     if order not in menus:
 #       return False
 #   return True
+
+def is_available_to_order(menus, orders):
+  menus_set = set(menus) 
+  # 중복 제거한 집합  -> 왜 굳이 set로 집합화 하는가?
+  # python이 in 연산자를 set(O(1))과 list(O(N))를 다르게 처리한다, 
+  for order in orders:
+    if order not in menus_set:
+      return False
+  return True  
+
 
 
 result = is_available_to_order(shop_menus, shop_orders)

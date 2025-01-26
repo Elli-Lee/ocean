@@ -1,3 +1,4 @@
+# 원본 배열을 최대한 건드리지 말자
 numbers = [1, 1, 1, 1, 1]
 target_number = 3
 

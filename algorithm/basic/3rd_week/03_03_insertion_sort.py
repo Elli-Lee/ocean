@@ -1,7 +1,5 @@
 input = [4, 6, 2, 9, 1]
 
-[4,6] 
-
 def insertion_sort(array):
   for i in range(1, len(array)):
     target = array[i] # 원하는 위치에 끼워넣을 대상
@@ -12,8 +10,18 @@ def insertion_sort(array):
         target_cur_index -= 1 # 자리 옮겼으므로
       else: # 배치하고자 하는 애(target)가 맨 마지막 애보다 큰 경우: 그 앞쪽은 비교할 필요도 없음
         break # j 그만 돌고 그다음 target으로 넘어감
-    print("i=", i, "   array: ", array)
   return array
+
+def insertion_sort_solution(array):
+    n = len(array)
+    for i in range(1, n):
+      for j in range(i):
+        if array[i-j] < array[i-j-1]:
+          array[i-j], array[i-j-1] = array[i-j-1], array[i-j]
+        else:
+          break
+    return array
+
 
 
 insertion_sort(input)

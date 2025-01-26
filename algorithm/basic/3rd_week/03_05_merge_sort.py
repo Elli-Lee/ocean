@@ -1,34 +1,6 @@
-# 버블 정렬
-def bubble_sort(array):
-    for i in range(len(array) - 1): # 총 len - 1 번 반복하면 정렬 완료
-        for j in range(len(array)-1-i):
-            if array[j] > array[j+1]:
-              array[j], array[j+1] = array[j+1], array[j]
-    return array
+array = [5, 3, 2, 1, 6, 8, 7, 4]
 
-# 선택 정렬
-def selection_sort(array):
-  n = len(array)
-  for i in range(n - 1):   # O(N)
-    min_index = i
-    for j in range(n-i):
-      if array[i+j] < array[min_index]: # O(N)
-        min_index = i+j
-    array[i], array[min_index] = array[min_index], array[i]
-  return array
 
-# 삽입 정렬
-def insertion_sort(array):
-    n = len(array)
-    for i in range(1, n):
-      for j in range(i):
-        if array[i-j] < array[i-j-1]:
-          array[i-j], array[i-j-1] = array[i-j-1], array[i-j]
-        else:
-          break
-    return array
-
-# 병합 정렬
 def merge_sort(array):
     if len(array) == 1:
       return array
@@ -37,6 +9,7 @@ def merge_sort(array):
     right_array = merge_sort(array[mid : ])
     # merge(merge_sort())
     return merge(left_array, right_array)
+
 
 def merge(array1, array2):
     result = []
@@ -61,3 +34,10 @@ def merge(array1, array2):
             array1_index += 1
 
     return result
+
+
+print(merge_sort(array))  # [1, 2, 3, 4, 5, 6, 7, 8] 가 되어야 합니다!
+
+print("정답 = [-7, -1, 5, 6, 9, 10, 11, 40] / 현재 풀이 값 = ", merge_sort([-7, -1, 9, 40, 5, 6, 10, 11]))
+print("정답 = [-1, 2, 3, 5, 10, 40, 78, 100] / 현재 풀이 값 = ", merge_sort([-1, 2, 3, 5, 40, 10, 78, 100]))
+print("정답 = [-1, -1, 0, 1, 6, 9, 10] / 현재 풀이 값 = ", merge_sort([-1, -1, 0, 1, 6, 9, 10]))

@@ -1,6 +1,7 @@
 top_heights = [6, 9, 5, 7, 4]
 
 # 첫번째 풀어보기...
+# 시간복잡도 O(N^2)
 def get_receiver_top_orders_repeat(heights):
   result = []
   result.append(0)

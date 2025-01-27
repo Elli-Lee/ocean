@@ -1,4 +1,4 @@
-import "./App.css";
+import "./AppCourse.css";
 import CourseForm from "./components/course/CourseForm";
 import CourseList from "./components/course/CourseListCard";
 import CourseListCard from "./components/course/CourseListCard";

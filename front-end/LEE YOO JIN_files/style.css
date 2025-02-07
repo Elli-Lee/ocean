@@ -74,7 +74,7 @@ body {
 .container {
   max-width: 1024px;
   margin: 0 auto;
-  padding: 0 var(--spacing-1);
+  padding: o var(--spacing-1);
 }
 
 /* Header */
@@ -139,8 +139,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding-top: var(--spacing-5);
-  padding-bottom: var(--spacing-5);
+  padding: var(--spacing-5) 0;
 }
 
 .home__title {
@@ -189,8 +188,7 @@ body {
 
 /* Section */
 .section {
-  padding-top: calc(var(--header-height) + 1rem);
-  padding-bottom: calc(var(--header-height) + 1rem);
+  padding: calc(var(--header-height) + 1rem) 0;
 }
 
 .section__title {
@@ -428,13 +426,6 @@ body {
 /* Mobile */
 @media only screen and (max-width: 768px) {
   :root {
-    --font-size-1: 2rem;
-    --font-size-2: 1.75rem;
-    --font-size-3: 1.5rem;
-    --font-size-4: 1.25rem;
-    --font-size-5: 0.938rem;
-    --font-size-6: 0.75rem;
-
     --header-height: 3rem;
   }
   .nav__toggle {
@@ -460,42 +451,5 @@ body {
   .nav__item {
     margin-left: 0;
     margin-bottom: var(--spacing-4);
-  }
-
-  /* Home */
-  .home {
-    flex-direction: column-reverse; /* 세로 정렬 */
-    text-align: center;
-  }
-
-  .home__social {
-    justify-content: center;
-  }
-
-  .home__title {
-    margin-top: var(--spacing-3);
-  }
-
-  /* About */
-  .about__container {
-    flex-direction: column;
-    text-align: center;
-  }
-
-  .about__subtitle {
-    margin-top: var(--spacing-2);
-  }
-
-  /* Skills */
-  .skills__container {
-    grid-template-columns: 1fr;
-    gap: 1.5rem;
-    text-align: center;
-  }
-
-  /* Work */
-  .work__container {
-    grid-template-columns: 1fr;
-    gap: 1.5rem;
   }
 }

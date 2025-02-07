@@ -10,13 +10,6 @@ function init() {
     // menu toggle
     toggleMenu();
   });
-
-  const $navLinkList = document.querySelectorAll('.nav__list');
-  $navLinkList.forEach((item) => {
-    item.addEventListener('click', () => {
-      toggleMenu();
-    });
-  });
 }
 
 init();

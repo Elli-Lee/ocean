@@ -1,6 +1,6 @@
 function TodoList({ todos = [] }) {
-  const items = todos;
-  items.push({ id: 1, label: "포트폴리오 사이트 만들기" });
+  const items = [...todos]; // deep copy
+  items.push({ id: 2, label: "포트폴리오 사이트 만들기" });
 
   return (
     <ul>

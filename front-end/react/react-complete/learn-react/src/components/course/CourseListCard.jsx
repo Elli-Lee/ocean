@@ -2,13 +2,13 @@ import { Fragment } from "react";
 import Card from "../Card";
 import CourseItem from "./CourseItem";
 
-const CourseListCard = ({ title, items }) => {
+const CourseListCard = ({ title, items, onFavorite }) => {
   return (
     <Card title={title}>
       <div className="courses">
         {items.map((item, index) => (
           <Fragment key={item.id}>
-            <CourseItem {...item} />
+            <CourseItem {...item} onFavorite={onFavorite} />
             {index !== items.length - 1 && <hr className="divider" />}
           </Fragment>
         ))}

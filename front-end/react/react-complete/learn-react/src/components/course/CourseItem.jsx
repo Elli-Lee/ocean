@@ -1,6 +1,6 @@
 const HeartIconButton = ({ onHeartClick, isFavorite = false }) => {
   return (
-    <button className="btn" onClick={(e) => onHeartClick(e)}>
+    <button className="btn" onClick={(e) => onHeartClick(e, isFavorite)}>
       <img
         className="btn__img"
         src={isFavorite ? "/img/heart-fill-icon.svg" : "/img/heart-icon.svg"}
@@ -17,10 +17,18 @@ const LinkIconButton = ({ link }) => {
   );
 };
 
-const CourseItem = ({ title, description, thumbnail, isFavorite, link }) => {
+const CourseItem = ({
+  title,
+  id,
+  description,
+  thumbnail,
+  isFavorite,
+  link,
+  onFavorite,
+}) => {
   const handleFavorite = (e) => {
     e.stopPropagation();
-    alert(isFavorite ? "좋아요" : "안 좋아요");
+    onFavorite(id, !isFavorite);
   };
 
   const handleItemClick = (e) => {

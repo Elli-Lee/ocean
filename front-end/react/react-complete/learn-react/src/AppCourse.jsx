@@ -2,9 +2,11 @@ import "./AppCourse.css";
 import CourseForm from "./components/course/CourseForm";
 import CourseList from "./components/course/CourseListCard";
 import CourseListCard from "./components/course/CourseListCard";
+import { useState } from "react";
+import { useImmer } from "use-immer";
 
 function App() {
-  const items = [
+  const [items, updateItems] = useImmer([
     {
       id: 0,
       title: "입문자를 위한, HTML&CSS 웹 개발 입문",
@@ -29,14 +31,25 @@ function App() {
       isFavorite: true,
       link: "https://inf.run/YkAN",
     },
-  ];
+  ]);
+
+  const handleFavoriteChange = (id, isFavorite) => {
+    updateItems((draft) => {
+      const targetItem = draft.find((item) => item.id === id);
+      targetItem.isFavorite = isFavorite;
+    });
+  };
 
   const favoriteLectures = items.filter((item) => item.isFavorite);
   return (
     <>
       <main style={{ flexDirection: "column", gap: "1rem" }}>
         <CourseForm />
-        <CourseListCard items={items} title="강의목록" />
+        <CourseListCard
+          items={items}
+          title="강의목록"
+          onFavorite={handleFavoriteChange}
+        />
         {/* <CourseListCard items={favoriteLectures} title="관심 강의" /> */}
       </main>
     </>

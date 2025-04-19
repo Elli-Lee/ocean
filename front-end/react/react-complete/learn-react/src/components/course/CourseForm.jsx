@@ -1,8 +1,8 @@
 import Card from "../Card";
-import { useState } from "react";
+import { useImmer } from "use-immer";
 
 const CourseForm = () => {
-  const [form, setForm] = useState({
+  const [form, updateForm] = useImmer({
     title: "리액트 강의",
     description: "리액트 강의 설명",
     info: {
@@ -16,20 +16,20 @@ const CourseForm = () => {
   };
 
   const handleChange = (e) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
+    updateForm((draft) => {
+      draft[e.target.name] = e.target.value;
+    });
   };
 
   const handleSkillChange = (e) => {
-    setForm({
-      ...form,
-      info: { ...form.info, skill: e.target.value },
+    updateForm((draft) => {
+      draft.info.skill = e.target.value;
     });
   };
 
   const handleLevelChange = (e) => {
-    setForm({
-      ...form,
-      info: { ...form.info, level: e.target.value },
+    updateForm((draft) => {
+      draft.info.level = e.target.value;
     });
   };
 

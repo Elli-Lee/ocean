@@ -1,70 +1,54 @@
 import "./App.css";
 import TodoList from "./components/todo/TodoList";
-import { useState } from "react";
+import { useReducer, useState } from "react";
+import todoReducer from "./reducer/todo-reducer";
+import { useImmerReducer } from "use-immer";
 
 function AppTodo(props) {
-  const [todoText, setTodoText] = useState("");
-  const [todos, setTodos] = useState([
+  const [todos, dispatch] = useImmerReducer(todoReducer, [
     { id: 0, text: "HTML & CSS 공부하기", isDone: false },
     { id: 1, text: "JavaScript 공부하기", isDone: false },
   ]);
+  const [todoText, setTodoText] = useState("");
   const [insertAt, setInsertAt] = useState(todos.length - 1);
 
   const handleTodoTextChange = (e) => {
     setTodoText(e.target.value);
   };
 
+  // 1] added
   const handleAddTodo = () => {
     const nextId = todos.length;
-    setTodos([
-      ...todos,
-      {
-        id: nextId,
-        text: todoText,
-        isDone: false,
-      },
-    ]);
+    dispatch({ type: "added", id: nextId, text: todoText });
     setTodoText(""); // null 이나 undefined를 넣으면 안됨
   };
 
+  // 2] added_index
   const handleAddTodoByIndex = () => {
     const nextId = todos.length;
-    const newTodos = [
-      ...todos.slice(0, insertAt),
-      { id: nextId, text: todoText, isDone: false },
-      ...todos.slice(insertAt),
-    ];
-    setTodos(newTodos);
+    dispatch({ type: "added_index", id: nextId, text: todoText, insertAt });
     setTodoText("");
   };
 
-  const handleReverse = () => {
-    // const newTodos = [...todos];
-    // newTodos.reverse();
-    // setTodos(newTodos);
-    setTodos(todos.toReversed());
-  };
-
+  // 3] deleted
   const handleDeleteTodo = (deleteId) => {
-    const newTodos = todos.filter((todo) => todo.id !== deleteId);
-    setTodos(newTodos);
+    dispatch({ type: "deleted", deleteId });
   };
 
   const handleKeyDown = (e) => {
-    if (e.key === "Enter") {
+    if (e.key === "Enter" && e.nativeEvent.isComposing === false) {
       handleAddTodo();
     }
   };
 
+  // 4] done
   const handleToggleTodo = (id, isDone) => {
-    const newTodos = todos.map((todo) => {
-      if (todo.id === id) {
-        return { ...todo, isDone };
-      }
-      return todo;
-    });
+    dispatch({ type: "done", id, isDone });
+  };
 
-    setTodos(newTodos);
+  // 5] reversed
+  const handleReverse = () => {
+    dispatch({ type: "reversed" });
   };
 
   const handleSelectChange = (e) => {

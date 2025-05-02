@@ -35,7 +35,7 @@ function AppTodo(props) {
     dispatch({ type: "deleted", deleteId });
   };
 
-  const handleKeyDown = (e) => {
+  const handleAddTodoOnKeyDown = (e) => {
     if (e.key === "Enter" && e.nativeEvent.isComposing === false) {
       handleAddTodo();
     }
@@ -63,7 +63,7 @@ function AppTodo(props) {
           type="text"
           onChange={handleTodoTextChange}
           value={todoText}
-          onKeyDown={handleKeyDown}
+          onKeyDown={handleAddTodoOnKeyDown}
         />
         <button onClick={handleAddTodo}>추가</button>
       </div>

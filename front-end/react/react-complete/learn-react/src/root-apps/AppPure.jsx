@@ -1,5 +1,5 @@
 import "./App.css";
-import PullUpPure from "./components/PullUpPure";
+import PullUpPure from "../components/PullUpPure";
 
 function AppPure(props) {
   return (

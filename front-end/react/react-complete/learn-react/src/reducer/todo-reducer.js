@@ -27,6 +27,7 @@ export default function todoReducer(draft, action) {
     case "reversed": {
       return draft.toReversed();
     }
+
     default: {
       throw Error("알 수 없는 액선 타입: " + action.type);
     }

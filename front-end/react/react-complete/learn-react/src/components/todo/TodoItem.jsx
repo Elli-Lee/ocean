@@ -1,6 +1,8 @@
 import { useTodosDispatch } from "../../context/TodoContext";
+import { memo } from "react";
 
-const TodoItem = ({ item }) => {
+const TodoItem = memo(({ item }) => {
+  console.log("TodoItem 렌더링");
   const dispatch = useTodosDispatch();
   const onDeleteTodo = (deleteId) => {
     dispatch({ type: "deleted", deleteId });
@@ -20,6 +22,8 @@ const TodoItem = ({ item }) => {
       <button onClick={() => onDeleteTodo(item.id)}>X</button>
     </label>
   );
-};
+});
+
+TodoItem.displayName = "TodoItem";
 
 export default TodoItem;

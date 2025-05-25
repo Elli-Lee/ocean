@@ -2,7 +2,7 @@ import type { ReactNode } from 'react';
 
 type TailwindButtonProps = {
   children: ReactNode;
-  onClick: () => void;
+  onClick?: () => void;
 };
 
 const TailwindButton = ({ children, onClick }: TailwindButtonProps) => {
